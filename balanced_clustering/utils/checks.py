@@ -7,7 +7,13 @@ from contextlib import suppress
 
 import numpy as np
 import scipy.sparse as sp
-from numpy.exceptions import ComplexWarning, VisibleDeprecationWarning
+
+try:
+    # For NumPy >= 1.25
+    from numpy.exceptions import ComplexWarning, VisibleDeprecationWarning
+except Exception:
+    # For NumPy < 1.25
+    from numpy import ComplexWarning, VisibleDeprecationWarning
 
 
 def _astype_copy_false(X):
