@@ -7,7 +7,7 @@ from contextlib import suppress
 
 import numpy as np
 import scipy.sparse as sp
-from numpy.core.numeric import ComplexWarning
+from numpy.exceptions import ComplexWarning, VisibleDeprecationWarning
 
 
 def _astype_copy_false(X):
@@ -72,10 +72,10 @@ def is_multilabel(y):
         # DeprecationWarning will be replaced by ValueError, see NEP 34
         # https://numpy.org/neps/nep-0034-infer-dtype-is-object.html
         with warnings.catch_warnings():
-            warnings.simplefilter("error", np.VisibleDeprecationWarning)
+            warnings.simplefilter("error", VisibleDeprecationWarning)
             try:
                 y = np.asarray(y)
-            except np.VisibleDeprecationWarning:
+            except VisibleDeprecationWarning:
                 # dtype=object should be provided explicitly for ragged arrays,
                 # see NEP 34
                 y = np.array(y, dtype=object)
@@ -180,10 +180,10 @@ def type_of_target(y):
     # DeprecationWarning will be replaced by ValueError, see NEP 34
     # https://numpy.org/neps/nep-0034-infer-dtype-is-object.html
     with warnings.catch_warnings():
-        warnings.simplefilter("error", np.VisibleDeprecationWarning)
+        warnings.simplefilter("error", VisibleDeprecationWarning)
         try:
             y = np.asarray(y)
-        except np.VisibleDeprecationWarning:
+        except VisibleDeprecationWarning:
             # dtype=object should be provided explicitly for ragged arrays,
             # see NEP 34
             y = np.asarray(y, dtype=object)
